@@ -1,0 +1,23 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: msa_member
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/msa_member
+    username: postgres
+    password: 1234
+  sql:
+    init:
+      encoding: utf-8
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update # create/drop/create-drop/update/validate/none
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
