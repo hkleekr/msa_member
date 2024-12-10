@@ -3,6 +3,7 @@ package com.study.msademo.msa_member.model;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -21,8 +22,10 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "member")
+@NoArgsConstructor
 @Builder
 public class Member {
+
     @Id @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -48,13 +51,19 @@ public class Member {
     @Column(name = "addr")
     private String addr;
 
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "member")
-//    private List<MemberOrderHistory> memberOrderHistories;
+    public Member(Long memberId, String memberName, String phone, String email, LocalDateTime joinDate, String grade, Integer credit, String addr) {
+        this.memberId = memberId;
+        this.memberName = memberName;
+        this.phone = phone;
+        this.email = email;
+        this.joinDate = joinDate;
+        this.grade = grade;
+        this.credit = credit;
+        this.addr = addr;
+    }
 
-    /* 기본 생성자: JPA에서 리플렉션을 통해 객체 생성에 사용되는 기본 생성자_외부에서의 객체 생성을 방지함 */
     @PrePersist
     void joinDate() {
         this.joinDate = LocalDateTime.now();
     }
-
 }

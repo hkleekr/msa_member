@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/member")
@@ -21,11 +23,20 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    /**
+     * 전체 Member 조회
+     * @return
+     */
     @GetMapping("")
-    public String welcomePage() {
-        return "Welcome to member";
+    public List<MemberResponseDto> getMembers() {
+        return memberService.getMembers();
     }
 
+    /**
+     * Member 신규 등록
+     * @param memberRequestDto
+     * @return
+     */
     @PostMapping("")
     public ResponseEntity<MemberResponseDto> createMember(MemberRequestDto memberRequestDto) {
 

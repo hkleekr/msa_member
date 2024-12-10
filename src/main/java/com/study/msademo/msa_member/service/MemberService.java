@@ -7,6 +7,8 @@ import com.study.msademo.msa_member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MemberService {
 
@@ -26,5 +28,13 @@ public class MemberService {
         Member savedMember = memberRepository.save(memberRequestDto.toEntity());
 
         return memberResponseDto.fromEntity(savedMember);
+    }
+
+    @Transactional
+    public List<MemberResponseDto> getMembers() {
+        return memberRepository.findAll()
+                .stream()
+                .map(MemberResponseDto::fromEntity)
+                .toList();
     }
 }
