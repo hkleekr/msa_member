@@ -16,10 +16,12 @@ public class MemberResponseDto {
     private String phone;
     private String email;
     private LocalDateTime joinDate;
+    private LocalDateTime modifiedDate;
     private String grade;
     private Integer credit;
     private String addr;
-    private Boolean deleteYn;
+    private String deleteYn;
+    private LocalDateTime deletedDate;
 
     public static MemberResponseDto fromEntity(Member member) {
         return MemberResponseDto.builder()
@@ -27,10 +29,13 @@ public class MemberResponseDto {
                 .memberName(member.getMemberName())
                 .phone(member.getPhone())
                 .email(member.getEmail())
+                .joinDate(member.getJoinDate())
+                .modifiedDate(member.getModifiedDate())
                 .grade(member.getGrade())
                 .credit(member.getCredit())
                 .addr(member.getAddr())
                 .deleteYn(member.getDeleteYn())
+                .deletedDate(member.getDeletedDate())
                 .build();
     }
 

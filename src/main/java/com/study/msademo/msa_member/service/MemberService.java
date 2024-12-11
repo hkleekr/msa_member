@@ -5,11 +5,10 @@ import com.study.msademo.msa_member.model.MemberRequestDto;
 import com.study.msademo.msa_member.model.MemberResponseDto;
 import com.study.msademo.msa_member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -17,7 +16,7 @@ public class MemberService {
     private MemberRepository memberRepository;
     String DEFAULTGRADE = "PRIME";
     Integer DEFAULTCREDIT = 10;
-    Boolean DEFAULTDELETEYN = Boolean.valueOf("N");
+    String DEFAULTDELETEYN = "N";
 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -43,15 +42,27 @@ public class MemberService {
     }
 
     @Transactional
-    public ResponseEntity<MemberResponseDto> deleteMember(Long memberId) {
-        Member deletedMember = memberRepository.findBymemberId(memberId);
-        deletedMember.setDeleteYn(Boolean.valueOf("Y"));
+    public MemberResponseDto deleteMember(Long memberId,MemberResponseDto memberResponseDto) {
+        Member targetedMember = memberRepository.findByMemberId(memberId);   //1. 논리적 삭제 대상 레코드 id로 조회
+        targetedMember.setDeleteYn("Y");        //2. 논리적 삭제 필드'Y'로 변경(update)
+        targetedMember.setDeletedDate(LocalDateTime.now());
 
-
+        Member logicalDeletedMember = memberRepository.save(targetedMember);    //2. 업데이트 할 레코드 repo 로 전송
+        return memberResponseDto.fromEntity(logicalDeletedMember);
     }
 
     @Transactional
-    public ResponseEntity<MemberResponseDto> updateMember(Long memberId, MemberRequestDto memberRequestDto) {
+    public MemberResponseDto updateMember(Long memberId, MemberRequestDto memberRequestDto, MemberResponseDto memberResponseDto) {
+        //1. 업데이트 대상 레코드 id로 조회
+        Member targetedMember = memberRepository.findByMemberId(memberId);
 
+        targetedMember.setPhone(memberRequestDto.getPhone());
+        targetedMember.setEmail(memberRequestDto.getEmail());
+        targetedMember.setAddr(memberRequestDto.getAddr());
+        targetedMember.setModifiedDate(LocalDateTime.now());
+
+        Member updatedMember = memberRepository.save(targetedMember);    //2. 업데이트 할 레코드 repo 로 전송
+
+        return memberResponseDto.fromEntity(updatedMember);
     }
 }

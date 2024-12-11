@@ -42,6 +42,9 @@ public class Member {
     @Column(name = "joinDate", columnDefinition = "TIMESTAMP")
     private LocalDateTime joinDate;
 
+    @Column(name = "modifiedDate", columnDefinition = "TIMESTAMP")
+    private LocalDateTime modifiedDate;
+
     @Column(name = "grade")
     private String grade;
 
@@ -52,22 +55,31 @@ public class Member {
     private String addr;
 
     @Column(name = "deleteYn")
-    private Boolean deleteYn;
+    private String deleteYn;
 
-    public Member(Long memberId, String memberName, String phone, String email, LocalDateTime joinDate, String grade, Integer credit, String addr, Boolean deleteYn) {
+    @Column(name = "deletedDate", columnDefinition = "TIMESTAMP")
+    private LocalDateTime deletedDate;
+
+    public Member(Long memberId, String memberName, String phone, String email, LocalDateTime joinDate, LocalDateTime modifiedDate, String grade, Integer credit, String addr, String deleteYn, LocalDateTime deletedDate) {
         this.memberId = memberId;
         this.memberName = memberName;
         this.phone = phone;
         this.email = email;
         this.joinDate = joinDate;
+        this.modifiedDate = modifiedDate;
         this.grade = grade;
         this.credit = credit;
         this.addr = addr;
         this.deleteYn = deleteYn;
+        this.deletedDate = deletedDate;
     }
 
     @PrePersist
     void joinDate() {
         this.joinDate = LocalDateTime.now();
+    }
+
+    void modifiedDate(){
+        this.modifiedDate = LocalDateTime.now();
     }
 }
