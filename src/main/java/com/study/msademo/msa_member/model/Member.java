@@ -51,7 +51,10 @@ public class Member {
     @Column(name = "addr")
     private String addr;
 
-    public Member(Long memberId, String memberName, String phone, String email, LocalDateTime joinDate, String grade, Integer credit, String addr) {
+    @Column(name = "deleteYn")
+    private Boolean deleteYn;
+
+    public Member(Long memberId, String memberName, String phone, String email, LocalDateTime joinDate, String grade, Integer credit, String addr, Boolean deleteYn) {
         this.memberId = memberId;
         this.memberName = memberName;
         this.phone = phone;
@@ -60,6 +63,7 @@ public class Member {
         this.grade = grade;
         this.credit = credit;
         this.addr = addr;
+        this.deleteYn = deleteYn;
     }
 
     @PrePersist

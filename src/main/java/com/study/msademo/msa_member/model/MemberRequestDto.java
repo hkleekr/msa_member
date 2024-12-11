@@ -12,6 +12,7 @@ public class MemberRequestDto {
     private String grade;
     private Integer credit;
     private String addr;
+    private Boolean deleteYn;
 
     public Member toEntity() {
         return Member.builder()
@@ -21,6 +22,7 @@ public class MemberRequestDto {
                 .grade(grade)
                 .credit(credit)
                 .addr(addr)
+                .deleteYn(deleteYn)
         .build();
     }
 

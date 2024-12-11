@@ -19,6 +19,7 @@ public class MemberResponseDto {
     private String grade;
     private Integer credit;
     private String addr;
+    private Boolean deleteYn;
 
     public static MemberResponseDto fromEntity(Member member) {
         return MemberResponseDto.builder()
@@ -29,6 +30,7 @@ public class MemberResponseDto {
                 .grade(member.getGrade())
                 .credit(member.getCredit())
                 .addr(member.getAddr())
+                .deleteYn(member.getDeleteYn())
                 .build();
     }
 
