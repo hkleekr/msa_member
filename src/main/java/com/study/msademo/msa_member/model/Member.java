@@ -54,13 +54,13 @@ public class Member {
     @Column(name = "addr")
     private String addr;
 
-    @Column(name = "deleteYn")
-    private String deleteYn;
+    @Column(name = "deleteTf")
+    private Boolean deleteTf;
 
     @Column(name = "deletedDate", columnDefinition = "TIMESTAMP")
     private LocalDateTime deletedDate;
 
-    public Member(Long memberId, String memberName, String phone, String email, LocalDateTime joinDate, LocalDateTime modifiedDate, String grade, Integer credit, String addr, String deleteYn, LocalDateTime deletedDate) {
+    public Member(Long memberId, String memberName, String phone, String email, LocalDateTime joinDate, LocalDateTime modifiedDate, String grade, Integer credit, String addr, Boolean deleteTf, LocalDateTime deletedDate) {
         this.memberId = memberId;
         this.memberName = memberName;
         this.phone = phone;
@@ -70,7 +70,7 @@ public class Member {
         this.grade = grade;
         this.credit = credit;
         this.addr = addr;
-        this.deleteYn = deleteYn;
+        this.deleteTf = deleteTf;
         this.deletedDate = deletedDate;
     }
 

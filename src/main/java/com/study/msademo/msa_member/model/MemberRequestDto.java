@@ -9,10 +9,10 @@ public class MemberRequestDto {
     private String memberName;
     private String phone;
     private String email;
-    private String grade;   //
-    private Integer credit;  //
+    private String grade;   // default
+    private Integer credit;  // default
     private String addr;
-    private String deleteYn;  //
+    private Boolean deleteTf;  // default
 
     public Member toEntity() {
         return Member.builder()
@@ -22,7 +22,7 @@ public class MemberRequestDto {
                 .grade(grade)
                 .credit(credit)
                 .addr(addr)
-                .deleteYn(deleteYn)
+                .deleteTf(deleteTf)
         .build();
     }
 }

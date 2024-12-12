@@ -16,7 +16,7 @@ public class MemberService {
     private MemberRepository memberRepository;
     String DEFAULTGRADE = "PRIME";
     Integer DEFAULTCREDIT = 10;
-    String DEFAULTDELETEYN = "N";
+    Boolean DEFAULTDELETETF = false;
 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -25,9 +25,19 @@ public class MemberService {
     @Transactional
     public MemberResponseDto createMember(MemberRequestDto memberRequestDto, MemberResponseDto memberResponseDto) {
 
+        // TODO: 회원생성에 중복체크
+//        Boolean dupCheck = memberRepository.existsByMemberName(memberRequestDto.getMemberName());  // 중복이면,
+//        // 중복체크
+//        if (dupCheck) {
+//
+//        } else {
+//
+//        }
+
+
         memberRequestDto.setGrade(DEFAULTGRADE);
         memberRequestDto.setCredit(DEFAULTCREDIT);
-        memberRequestDto.setDeleteYn(DEFAULTDELETEYN);
+        memberRequestDto.setDeleteTf(DEFAULTDELETETF);
         Member savedMember = memberRepository.save(memberRequestDto.toEntity());
 
         return memberResponseDto.fromEntity(savedMember);
@@ -44,7 +54,7 @@ public class MemberService {
     @Transactional
     public MemberResponseDto deleteMember(Long memberId,MemberResponseDto memberResponseDto) {
         Member targetedMember = memberRepository.findByMemberId(memberId);   //1. 논리적 삭제 대상 레코드 id로 조회
-        targetedMember.setDeleteYn("Y");        //2. 논리적 삭제 필드'Y'로 변경(update)
+        targetedMember.setDeleteTf(true);        //2. 논리적 삭제 필드 true로 변경(update)
         targetedMember.setDeletedDate(LocalDateTime.now());
 
         Member logicalDeletedMember = memberRepository.save(targetedMember);    //2. 업데이트 할 레코드 repo 로 전송

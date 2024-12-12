@@ -20,7 +20,7 @@ public class MemberResponseDto {
     private String grade;
     private Integer credit;
     private String addr;
-    private String deleteYn;
+    private Boolean deleteTf;
     private LocalDateTime deletedDate;
 
     public static MemberResponseDto fromEntity(Member member) {
@@ -34,7 +34,7 @@ public class MemberResponseDto {
                 .grade(member.getGrade())
                 .credit(member.getCredit())
                 .addr(member.getAddr())
-                .deleteYn(member.getDeleteYn())
+                .deleteTf(member.getDeleteTf())
                 .deletedDate(member.getDeletedDate())
                 .build();
     }
